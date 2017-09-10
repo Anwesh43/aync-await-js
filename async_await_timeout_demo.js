@@ -1,4 +1,4 @@
-function getTimeoutPromise(n,data) {
+async function getTimeoutPromise(n,data) {
     var promise = new Promise((resolve,reject)=>{
         setTimeout(()=>{
             resolve({status:"success",...data})
@@ -6,9 +6,8 @@ function getTimeoutPromise(n,data) {
     })
     return promise
 }
-getTimeoutPromise(2,{text:"Hello World"}).then((resp)=>{
-    if(resp.status == "success") {
-        console.log(resp)
-        document.getElementById('content').innerHTML = resp.text
-    }
-})
+const resp = await getTimeoutPromise(2,{text:"Using Async Await ,Hello World"})
+
+if(resp.status && resp.status == "success") {
+    document.getElementById('content').innerHTML = resp.text
+}
